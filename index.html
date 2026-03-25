@@ -7,7 +7,8 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Imported both Poppins (for body) and Roboto Condensed (for the title) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -45,7 +46,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    h1, h2, h3, h4 {
+    h2, h3, h4 {
       font-weight: 600;
       letter-spacing: -0.5px;
     }
@@ -153,12 +154,17 @@
       margin-bottom: 8px;
     }
 
+    /* Stili per il nuovo titolo in Roboto Condensed */
     .header h1 { 
       margin: 0 0 10px 0; 
-      font-size: 2.2rem; 
-      font-weight: 700; 
-      line-height: 1.2;
+      font-family: 'Roboto Condensed', sans-serif;
+      font-size: 2.6rem; 
+      line-height: 1.1;
+      letter-spacing: 0.5px;
     }
+    .font-normal { font-weight: 400; }
+    .font-bold { font-weight: 700; }
+
     .header p { margin: 0; opacity: 0.9; font-size: 1.05rem; font-weight: 400; }
 
     .toolbar { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 30px; }
@@ -330,7 +336,7 @@
     @media (max-width: 820px) {
       .grid, .grid-3, .check-grid { grid-template-columns: 1fr; }
       .header { flex-direction: column; text-align: center; padding: 30px 20px;}
-      .header h1 { font-size: 1.8rem; }
+      .header h1 { font-size: 2.2rem; }
       .container { padding: 20px 10px; }
       .toolbar { justify-content: center; }
     }
@@ -379,7 +385,7 @@
         margin-bottom: 20px !important;
         page-break-after: avoid;
       }
-      .header h1 { font-size: 1.6rem !important; margin-bottom: 5px !important; }
+      .header h1 { font-size: 2.2rem !important; margin-bottom: 5px !important; }
       .header p { font-size: 0.95rem !important; }
       .header .logo { max-height: 55px !important; }
 
@@ -472,7 +478,8 @@
       
       <div class="header-content">
         <div class="company-name">HUB - Società di Ingegneria</div>
-        <h1>CHECKLIST SOPRALLUOGO</h1>
+        <!-- TITOLO IN ROBOTO CONDENSED -->
+        <h1><span class="font-normal">CHECKLIST</span> <span class="font-bold">SOPRALLUOGO</span></h1>
         <p>Riqualificazione energetica e strutturale di edifici produttivi — modulo compilabile.</p>
       </div>
     </div>
