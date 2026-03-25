@@ -13,18 +13,23 @@
   <style>
     :root {
       /* Palette Colori Moderna */
-      --bg: #f8fafc; /* Grigio chiarissimo per lo sfondo */
+      --bg: #f8fafc;
       --card: #ffffff;
-      --text: #111827; /* Grigio molto scuro, migliore leggibilità */
+      --text: #111827; 
       --muted: #6b7280;
-      --border: #e5e7eb; /* Bordi chiari e delicati */
+      --border: #e5e7eb; 
       
       /* Colori Aziendali HUB */
       --primary: #3a73d8;      /* Blu */
-      --primary-dark: #3c364c; /* Viola */
+      --primary-dark: #3c364c; /* Viola Scuro */
+      
+      /* Nuovo Viola per Header */
+      --header-purple-light: #7e22ce;
+      --header-purple-dark: #4c1d95;
+
       --accent: #eff6ff;
-      --danger: #ef4444;       /* Rosso più vivo */
-      --success: #10b981;      /* Verde più vivo */
+      --danger: #ef4444;       
+      --success: #10b981;      
       
       /* Effetti Moderni */
       --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -53,7 +58,7 @@
     #login-overlay {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100vh;
-      background: linear-gradient(135deg, rgba(60, 54, 76, 0.98), rgba(58, 115, 216, 0.98));
+      background: linear-gradient(135deg, var(--header-purple-dark), var(--primary));
       display: flex;
       justify-content: center;
       align-items: center;
@@ -73,7 +78,7 @@
     }
 
     .login-box h2 {
-      color: var(--primary-dark);
+      color: var(--header-purple-dark);
       margin: 0 0 15px 0;
       font-size: 1.8rem;
     }
@@ -97,14 +102,19 @@
     
     .login-box input:focus {
       outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(58, 115, 216, 0.1);
+      border-color: var(--header-purple-light);
+      box-shadow: 0 0 0 3px rgba(126, 34, 206, 0.1);
     }
 
     .login-box button {
       width: 100%;
       font-size: 1.1rem;
       padding: 15px;
+      background: var(--header-purple-dark);
+      color: white;
+    }
+    .login-box button:hover {
+      background: var(--header-purple-light);
     }
 
     /* --- LAYOUT PRINCIPALE --- */
@@ -115,7 +125,8 @@
     }
 
     .header {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      /* Sfondo Viola Ripristinato */
+      background: linear-gradient(135deg, var(--header-purple-light), var(--header-purple-dark));
       color: white;
       border-radius: var(--radius);
       padding: 35px;
@@ -126,7 +137,6 @@
       gap: 25px;
     }
 
-    /* Regole per il logo aggiunto */
     .header .logo {
       max-height: 80px;
       max-width: 250px;
@@ -178,7 +188,7 @@
       box-shadow: var(--shadow-sm);
     }
 
-    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary { background: var(--header-purple-dark); color: white; }
     .btn-success { background: var(--success); color: white; }
     .btn-secondary { background: white; color: var(--text); border: 1px solid var(--border); }
     .btn-danger { background: var(--danger); color: white; }
@@ -197,8 +207,8 @@
     }
     .btn-add:hover { 
       background: #f1f5f9; 
-      color: var(--primary);
-      border-color: var(--primary);
+      color: var(--header-purple-dark);
+      border-color: var(--header-purple-dark);
     }
 
     .card {
@@ -213,7 +223,7 @@
     .section-title {
       margin: 0 0 20px 0;
       font-size: 1.3rem;
-      color: var(--primary);
+      color: var(--header-purple-dark);
       border-bottom: 2px solid #f1f5f9;
       padding-bottom: 12px;
       font-weight: 700;
@@ -221,7 +231,7 @@
 
     .section-subtitle {
       font-size: 1.1rem;
-      color: var(--primary-dark);
+      color: var(--header-purple-light);
       margin: 25px 0 15px 0;
       font-weight: 600;
     }
@@ -253,8 +263,8 @@
     
     input:focus, select:focus, textarea:focus {
       outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(58, 115, 216, 0.1);
+      border-color: var(--header-purple-light);
+      box-shadow: 0 0 0 3px rgba(126, 34, 206, 0.1);
     }
 
     input[type="file"] { padding: 10px; background: #f9fafb; border-style: dashed;}
@@ -279,7 +289,7 @@
     .dynamic-item-header h3 {
       margin: 0;
       font-size: 1.1rem;
-      color: var(--primary-dark);
+      color: var(--header-purple-dark);
       font-weight: 600;
     }
     .btn-remove {
@@ -308,7 +318,7 @@
     }
 
     .check-item { display: flex; align-items: center; gap: 10px; font-size: 0.95rem; font-weight: 500;}
-    .check-item input[type="checkbox"] { width: 18px; height: 18px; margin: 0; accent-color: var(--primary); cursor: pointer;}
+    .check-item input[type="checkbox"] { width: 18px; height: 18px; margin: 0; accent-color: var(--header-purple-dark); cursor: pointer;}
 
     .footer-copyright {
       text-align: center;
@@ -334,11 +344,14 @@
       .container { padding: 0; }
       .toolbar, .btn-add, .btn-remove { display: none !important; }
       .card, .header { box-shadow: none; border: 1px solid #d1d5db; page-break-inside: avoid; border-radius: 0; }
-      .header { color: var(--primary-dark); background: white; border-bottom: 3px solid var(--primary); flex-direction: row; text-align: left; padding: 20px;}
+      .header { color: var(--header-purple-dark); background: white; border-bottom: 3px solid var(--header-purple-dark); flex-direction: row; text-align: left; padding: 20px;}
       .company-name { color: var(--muted); }
       .dynamic-item-box { border: 1px solid #e5e7eb !important; padding: 15px !important; background: transparent !important; margin-bottom: 15px !important; page-break-inside: avoid;}
       .dynamic-item-header { border-bottom: 1px solid #e5e7eb !important; }
       input, select, textarea { border: 1px solid #ccc; background: transparent; padding: 8px;}
+      
+      /* Stile specifico per la firma in stampa */
+      .signature-field input { border: none !important; border-bottom: 1px dashed #000 !important; border-radius: 0 !important; color: transparent !important; }
     }
   </style>
 </head>
@@ -359,7 +372,6 @@
   <div class="container" id="main-content" style="display: none;">
     
     <div class="header">
-      <!-- Il richiamo al logo PNG inserito nel tuo folder GitHub -->
       <img src="logo.png" alt="HUB Logo" class="logo" onerror="this.style.display='none'">
       
       <div class="header-content">
@@ -607,7 +619,7 @@
         <h2 class="section-title">16. NOTE FINALI E DOCUMENTAZIONE</h2>
         <div class="grid">
           <div class="field">
-            <label>Acquisisci Fotografie (da fotocamera o galleria)</label>
+            <label>Acquisisci Fotografie</label>
             <input type="file" name="foto" accept="image/*" capture="environment" multiple>
             <div class="note" style="font-size: 0.85rem; color: #6b7280; margin-top: 4px;">N.B. Le foto non vengono salvate nel CSV, rimangono sul dispositivo.</div>
           </div>
@@ -616,6 +628,26 @@
           <div class="field full"><label>Prossimi passi</label><textarea name="prossimiPassi" placeholder="Richiedere documentazione, proposta economica..."></textarea></div>
         </div>
       </div>
+
+      <!-- NUOVA SEZIONE: LUOGO, DATA E FIRMA -->
+      <div class="card">
+        <h2 class="section-title">17. VALIDAZIONE E FIRMA</h2>
+        <div class="grid-3">
+          <div class="field">
+            <label>Luogo</label>
+            <input type="text" name="luogoFirma" placeholder="Es. Milano">
+          </div>
+          <div class="field">
+            <label>Data</label>
+            <input type="date" name="dataFirma">
+          </div>
+          <div class="field signature-field">
+            <label>Firma del tecnico incaricato</label>
+            <input type="text" name="firmaTecnico" placeholder="Digita il nome o firma su copia cartacea">
+          </div>
+        </div>
+      </div>
+
     </form>
 
     <div class="footer-copyright">
@@ -664,7 +696,6 @@
         document.getElementById('login-error').style.display = 'block';
       }
     }
-
 
     // Contatori per i blocchi dinamici
     let eeBillCount = 0;
