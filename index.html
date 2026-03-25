@@ -123,7 +123,6 @@
     .header {
       background: var(--hub-violet);
       color: white;
-      /* Applica Roboto Condensed a TUTTA l'intestazione */
       font-family: 'Roboto Condensed', sans-serif;
       border-radius: var(--radius);
       padding: 35px;
@@ -142,7 +141,7 @@
 
     .header-divider {
       width: 2px;
-      height: 80px;
+      height: 85px;
       background-color: rgba(255, 255, 255, 0.5);
       border-radius: 2px;
     }
@@ -172,6 +171,24 @@
     .font-bold { font-weight: 700; }
 
     .header p { margin: 0; opacity: 0.85; font-size: 1.05rem; font-weight: 400; }
+
+    .contact-info {
+      margin-top: 8px;
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.85);
+    }
+    
+    .contact-info a {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .contact-info a:hover {
+      color: white;
+      text-decoration: underline;
+    }
 
     .toolbar { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 30px; }
 
@@ -339,6 +356,15 @@
       border-top: 1px solid var(--border);
     }
 
+    .footer-copyright a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+    
+    .footer-copyright a:hover {
+      text-decoration: underline;
+    }
+
     @media (max-width: 820px) {
       .grid, .grid-3, .check-grid { grid-template-columns: 1fr; }
       .header { flex-direction: column; text-align: center; padding: 30px 20px;}
@@ -366,7 +392,7 @@
         zoom: 0.8; 
       }
 
-      #login-overlay, .toolbar, .btn-add, .btn-remove, .note, .footer-copyright { 
+      #login-overlay, .toolbar, .btn-add, .btn-remove, .note { 
         display: none !important; 
       }
       
@@ -390,9 +416,14 @@
         page-break-after: avoid;
       }
       .header h1 { font-size: 2.2rem !important; margin-bottom: 2px !important; }
-      .header p { font-size: 0.95rem !important; }
+      .header p { font-size: 0.95rem !important; margin-bottom: 4px !important; }
       .header .logo { max-height: 55px !important; }
       .header-divider { height: 60px !important; }
+      
+      .contact-info a {
+        color: white !important;
+        text-decoration: none !important;
+      }
 
       .card { 
         box-shadow: none !important; 
@@ -454,6 +485,11 @@
         background: transparent !important; 
         color: transparent !important; 
       }
+      
+      .footer-copyright {
+        border-top: 1px solid #d1d5db !important;
+        padding-top: 15px !important;
+      }
     }
   </style>
 </head>
@@ -482,6 +518,11 @@
         <div class="company-name">HUB - Società di Ingegneria</div>
         <h1><span class="font-normal">Checklist</span> <span class="font-bold">Sopralluogo</span></h1>
         <p>Riqualificazione energetica e strutturale di edifici produttivi — modulo compilabile.</p>
+        <div class="contact-info">
+          <a href="https://www.hub-sdi.it" target="_blank">www.hub-sdi.it</a> &nbsp;|&nbsp; 
+          <a href="mailto:info@hub-sdi.it">info@hub-sdi.it</a> &nbsp;|&nbsp; 
+          <a href="tel:+393423454817">+39 342 345 4817</a>
+        </div>
       </div>
     </div>
 
@@ -755,6 +796,11 @@
 
     <div class="footer-copyright">
       &copy; <span id="annoCorrente"></span> HUB Società di Ingegneria S.r.l. - Tutti i diritti riservati.<br>
+      <small>
+        <a href="https://www.hub-sdi.it" target="_blank">www.hub-sdi.it</a> &nbsp;|&nbsp; 
+        <a href="mailto:info@hub-sdi.it">info@hub-sdi.it</a> &nbsp;|&nbsp; 
+        <a href="tel:+393423454817">+39 342 345 4817</a>
+      </small><br>
       <small>Modello riservato per uso aziendale interno.</small>
     </div>
 
