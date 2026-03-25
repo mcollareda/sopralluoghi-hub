@@ -4,38 +4,58 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Checklist Sopralluogo - HUB Società di Ingegneria</title>
+  
+  <!-- Font moderno: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #f4f6f8;
+      /* Palette Moderna */
+      --bg: #f8fafc; /* Grigio chiarissimo quasi azzurro */
       --card: #ffffff;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --border: #d1d5db;
-      /* Colori Aziendali HUB */
-      --primary: #3a73d8;      /* Blu */
-      --primary-dark: #3c364c; /* Viola */
-      --accent: #f0f4fc;
-      --danger: #b91c1c;
-      --success: #15803d;
-      --shadow: 0 8px 24px rgba(0,0,0,0.08);
-      --radius: 16px;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      
+      /* Colori Aziendali HUB Rielaborati in chiave moderna */
+      --primary: #2563eb;      /* Blu vibrante */
+      --primary-hover: #1d4ed8;
+      --primary-dark: #1e1b4b; /* Viola scurissimo */
+      --accent: #eff6ff;
+      --danger: #ef4444;
+      --danger-hover: #dc2626;
+      --success: #10b981;
+      --success-hover: #059669;
+      
+      /* Stili UI */
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --radius: 12px;
+      --radius-sm: 8px;
+      
+      --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
       background: var(--bg);
-      color: var(--text);
-      line-height: 1.45;
+      color: var(--text-main);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* --- SCHERMATA DI LOGIN --- */
     #login-overlay {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100vh;
-      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      background: linear-gradient(135deg, rgba(30,27,75,0.9), rgba(37,99,235,0.9));
+      backdrop-filter: blur(8px);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -43,191 +63,349 @@
     }
     
     .login-box {
-      background: white;
-      padding: 40px 30px;
-      border-radius: var(--radius);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px 32px;
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
       text-align: center;
       max-width: 400px;
       width: 90%;
+      border: 1px solid rgba(255,255,255,0.2);
     }
 
     .login-box h2 {
       color: var(--primary-dark);
-      margin: 0 0 10px 0;
+      margin: 0 0 8px 0;
+      font-size: 1.75rem;
+      letter-spacing: -0.025em;
     }
 
     .login-box p {
-      color: var(--muted);
-      margin: 0 0 20px 0;
+      color: var(--text-muted);
+      margin: 0 0 24px 0;
       font-size: 0.95rem;
     }
 
     .login-box input {
       text-align: center;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       font-size: 1.1rem;
+      padding: 14px;
+      background: #f1f5f9;
     }
 
     .login-box button {
       width: 100%;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       padding: 14px;
+      border-radius: var(--radius-sm);
     }
 
     /* --- LAYOUT PRINCIPALE --- */
     .container {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 20px;
+      padding: 32px 20px;
     }
 
     .header {
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: white;
       border-radius: var(--radius);
-      padding: 24px;
-      box-shadow: var(--shadow);
-      margin-bottom: 20px;
+      padding: 32px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorazione astratta per l'header */
+    .header::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      border-radius: 50%;
     }
 
     .header-content {
+      position: relative;
+      z-index: 1;
       display: flex;
       flex-direction: column;
     }
 
     .company-name {
-      font-size: 1.05rem;
-      font-weight: 700;
+      font-size: 0.9rem;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: rgba(255, 255, 255, 0.85);
-      margin-bottom: 6px;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 8px;
     }
 
-    .header h1 { margin: 0 0 8px; font-size: 2rem; }
-    .header p { margin: 0; opacity: 0.95; font-size: 1.05rem; }
+    .header h1 { 
+      margin: 0 0 8px; 
+      font-size: 2.25rem; 
+      letter-spacing: -0.025em; 
+      font-weight: 700;
+    }
+    
+    .header p { 
+      margin: 0; 
+      opacity: 0.9; 
+      font-size: 1.05rem; 
+      font-weight: 400;
+    }
 
-    .toolbar { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+    /* --- TOOLBAR E BOTTONI --- */
+    .toolbar { 
+      display: flex; 
+      flex-wrap: wrap; 
+      gap: 12px; 
+      margin-bottom: 24px; 
+    }
 
     button {
       border: none;
-      border-radius: 12px;
-      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      padding: 10px 18px;
       cursor: pointer;
-      font-weight: 700;
-      font-size: 0.95rem;
-      transition: opacity 0.2s;
+      font-weight: 600;
+      font-size: 0.9rem;
+      font-family: inherit;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
-    button:hover { opacity: 0.9; }
+    
+    button:hover { 
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
 
     .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    
     .btn-success { background: var(--success); color: white; }
-    .btn-secondary { background: white; color: var(--text); border: 1px solid var(--border); }
-    .btn-danger { background: var(--danger); color: white; }
-    .btn-import { background: #4b5563; color: white; }
+    .btn-success:hover { background: var(--success-hover); }
+    
+    .btn-secondary { background: white; color: var(--text-main); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+    .btn-secondary:hover { background: #f8fafc; border-color: #cbd5e1; }
+    
+    .btn-danger { background: white; color: var(--danger); border: 1px solid #fecaca; }
+    .btn-danger:hover { background: #fef2f2; border-color: #fca5a5; }
+    
+    .btn-import { background: var(--text-muted); color: white; }
+    .btn-import:hover { background: #475569; }
     
     .btn-add {
       width: 100%;
-      margin-top: 10px;
-      background: transparent;
-      border: 2px dashed var(--primary);
+      margin-top: 16px;
+      background: #f8fafc;
+      border: 1px dashed #94a3b8;
       color: var(--primary);
-      padding: 12px;
-      font-weight: bold;
-      border-radius: 12px;
-      font-size: 1rem;
-      transition: all 0.2s;
+      padding: 14px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
     }
-    .btn-add:hover { background: #f0f4fc; }
+    .btn-add:hover { 
+      background: var(--accent); 
+      border-color: var(--primary); 
+      box-shadow: none;
+    }
 
+    /* --- CARDS & GRID --- */
     .card {
       background: var(--card);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 18px;
-      margin-bottom: 18px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      padding: 24px;
+      margin-bottom: 24px;
+      transition: var(--transition);
+    }
+    .card:hover {
+      box-shadow: var(--shadow-md);
     }
 
     .section-title {
-      margin: 0 0 14px;
+      margin: 0 0 20px;
       font-size: 1.25rem;
-      color: var(--primary);
-      border-bottom: 2px solid #e5e7eb;
-      padding-bottom: 8px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .section-title::before {
+      content: '';
+      display: block;
+      width: 4px;
+      height: 20px;
+      background: var(--primary);
+      border-radius: 4px;
     }
 
     .section-subtitle {
       font-size: 1.05rem;
-      color: var(--primary-dark);
-      margin: 18px 0 10px 0;
-      border-bottom: 1px dashed #e5e7eb;
-      padding-bottom: 4px;
+      color: var(--primary);
+      margin: 24px 0 12px 0;
+      font-weight: 600;
     }
 
-    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
     .field { display: flex; flex-direction: column; gap: 6px; }
     .field.full { grid-column: 1 / -1; }
 
-    label { font-size: 0.92rem; font-weight: 700; }
+    label { 
+      font-size: 0.85rem; 
+      font-weight: 600; 
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
 
+    /* --- INPUTS --- */
     input, select, textarea {
       width: 100%;
-      padding: 11px 12px;
+      padding: 10px 14px;
       border: 1px solid var(--border);
-      border-radius: 10px;
-      font-size: 0.96rem;
-      background: #fff;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      background: #f8fafc;
+      color: var(--text-main);
+      font-family: inherit;
+      transition: var(--transition);
+    }
+    
+    input:hover, select:hover, textarea:hover {
+      border-color: #cbd5e1;
     }
     
     input:focus, select:focus, textarea:focus {
-      outline: 2px solid var(--primary);
-      border-color: transparent;
+      outline: none;
+      background: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+    
+    input::placeholder, textarea::placeholder {
+      color: #94a3b8;
     }
 
-    input[type="file"] { padding: 8px; background: #f9fafb; }
-    textarea { min-height: 90px; resize: vertical; }
+    input[type="file"] { 
+      padding: 8px; 
+      background: #f1f5f9; 
+      border: 1px dashed #cbd5e1;
+      cursor: pointer;
+    }
+    
+    textarea { min-height: 100px; resize: vertical; }
 
+    /* --- CHECKBOXES --- */
     .check-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      background: #fafafa;
-      padding: 12px;
-      border-radius: 12px;
-      border: 1px solid #e5e7eb;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+      background: #f8fafc;
+      padding: 16px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
     }
 
-    .check-item { display: flex; align-items: center; gap: 8px; font-size: 0.95rem; }
-    .check-item input[type="checkbox"] { width: 18px; height: 18px; margin: 0; accent-color: var(--primary); }
+    .check-item { 
+      display: flex; 
+      align-items: center; 
+      gap: 10px; 
+      font-size: 0.95rem; 
+      font-weight: 500;
+      color: var(--text-main);
+      cursor: pointer;
+      text-transform: none;
+      letter-spacing: normal;
+    }
+    
+    .check-item input[type="checkbox"] { 
+      width: 18px; 
+      height: 18px; 
+      margin: 0; 
+      accent-color: var(--primary); 
+      cursor: pointer;
+    }
 
+    /* --- FOOTER --- */
     .footer-copyright {
       text-align: center;
-      margin-top: 30px;
-      padding: 20px 10px;
+      margin-top: 40px;
+      padding: 24px 10px;
       font-size: 0.9rem;
-      color: var(--muted);
-      border-top: 1px solid var(--border);
+      color: var(--text-muted);
     }
 
+    /* --- RESPONSIVE --- */
     @media (max-width: 820px) {
-      .grid, .grid-3, .check-grid { grid-template-columns: 1fr; }
-      .header h1 { font-size: 1.6rem; }
-      .container { padding: 12px; }
+      .grid, .grid-3 { grid-template-columns: 1fr; }
+      .header h1 { font-size: 1.75rem; }
+      .container { padding: 16px; }
+      .toolbar { flex-direction: column; }
+      .toolbar button { width: 100%; }
     }
 
+    /* --- STAMPA --- */
     @media print {
-      body { background: white; }
+      body { background: white; color: black; font-size: 11pt; }
       #login-overlay { display: none !important; }
       #main-content { display: block !important; }
+      .container { padding: 0; max-width: 100%; }
       .toolbar, .btn-add { display: none !important; }
-      .card, .header { box-shadow: none; border: 1px solid #d1d5db; page-break-inside: avoid; }
-      .header { color: var(--primary-dark); background: white; border-bottom: 3px solid var(--primary); }
-      .company-name { color: var(--muted); }
+      
+      .card { 
+        box-shadow: none; 
+        border: none; 
+        border-bottom: 2px solid #e2e8f0; 
+        border-radius: 0;
+        padding: 10px 0;
+        page-break-inside: avoid; 
+        margin-bottom: 10px;
+      }
+      
+      .header { 
+        color: black; 
+        background: white; 
+        border-bottom: 3px solid black; 
+        box-shadow: none;
+        padding: 0 0 15px 0;
+        border-radius: 0;
+      }
+      .header::after { display: none; }
+      .company-name { color: #666; }
+      
+      input, select, textarea {
+        background: transparent;
+        border: 1px solid #ccc;
+        padding: 6px;
+      }
+      .check-grid { background: transparent; border: 1px solid #ccc; }
+      
+      /* Rimuove lo stile speciale dinamico in stampa */
       div[id^="ee-bill-"], div[id^="gas-bill-"], div[id^="water-bill-"], 
       div[id^="load-unit-"], div[id^="hvac-unit-"] { 
-        border: none !important; padding: 0 !important; background: transparent !important; margin-bottom: 20px !important; 
+        border: 1px solid #eee !important; 
+        background: transparent !important; 
+        margin-bottom: 10px !important; 
+        padding: 10px !important;
       }
     }
   </style>
@@ -238,9 +416,9 @@
     <div class="login-box">
       <h2>Area Riservata</h2>
       <p>Inserisci la password per accedere al modulo.</p>
-      <input type="password" id="password-input" placeholder="Password">
-      <button type="button" class="btn-primary" onclick="checkPassword()">Accedi</button>
-      <div id="login-error" style="color: var(--danger); display: none; font-size: 0.9rem; margin-top: 12px; font-weight: bold;">
+      <input type="password" id="password-input" placeholder="Password HUB">
+      <button type="button" class="btn-primary" onclick="checkPassword()">Accedi al Modulo</button>
+      <div id="login-error" style="color: var(--danger); display: none; font-size: 0.9rem; margin-top: 16px; font-weight: 600;">
         Password errata, riprova.
       </div>
     </div>
@@ -252,7 +430,7 @@
       <div class="header-content">
         <div class="company-name">HUB - Società di Ingegneria</div>
         <h1>CHECKLIST SOPRALLUOGO</h1>
-        <p>Riqualificazione energetica e strutturale di edifici produttivi — modulo compilabile.</p>
+        <p>Riqualificazione energetica e strutturale — modulo compilabile.</p>
       </div>
     </div>
 
@@ -263,13 +441,14 @@
       <input type="file" id="fileInputCSV" accept=".csv" style="display: none;" onchange="importaCSV(event)">
       <button class="btn-secondary" type="button" onclick="salvaDati()">Salva nel browser</button>
       <button class="btn-secondary" type="button" onclick="caricaDati()">Carica dati salvati</button>
-      <button class="btn-danger" type="button" onclick="resetModulo()">Azzera modulo</button>
+      <button class="btn-danger" style="margin-left: auto;" type="button" onclick="resetModulo()">Azzera modulo</button>
     </div>
 
     <form id="checklistForm">
       
+      <!-- 1. DATI GENERALI -->
       <div class="card">
-        <h2 class="section-title">1. DATI GENERALI</h2>
+        <h2 class="section-title">1. Dati Generali</h2>
         <div class="grid">
           <div class="field"><label>Ragione sociale / Cliente</label><input name="cliente"></div>
           <div class="field"><label>Referente tecnico</label><input name="referente"></div>
@@ -290,91 +469,98 @@
         </div>
       </div>
 
+      <!-- 2. STRATEGIA E NORMATIVA -->
       <div class="card">
-        <h2 class="section-title">2. STRATEGIA E NORMATIVA</h2>
+        <h2 class="section-title">2. Strategia e Normativa</h2>
         <div class="grid-3">
-          <div class="field"><label>Obbligo Diagnosi (D.Lgs 102/14)</label><select name="obbligoDiagnosi"><option value=""></option><option>Sì</option><option>No</option><option>Da verificare</option></select></div>
+          <div class="field"><label>Obbligo Diagnosi</label><select name="obbligoDiagnosi"><option value=""></option><option>Sì</option><option>No</option><option>Da verificare</option></select></div>
           <div class="field"><label>Certificazione ISO 50001</label><select name="iso50001"><option value=""></option><option>Sì</option><option>No</option><option>In corso</option></select></div>
-          <div class="field"><label>Target Incentivi</label><input name="targetIncentivi" placeholder="Es. Transizione 5.0, Conto Termico..."></div>
+          <div class="field"><label>Target Incentivi</label><input name="targetIncentivi" placeholder="Es. Transizione 5.0..."></div>
         </div>
-        <div class="field full" style="margin-top:14px;"><label>Altra Documentazione disponibile (APE, Relazioni...)</label><textarea name="documentazione"></textarea></div>
+        <div class="field full" style="margin-top:16px;"><label>Documentazione disponibile</label><textarea name="documentazione" placeholder="APE, Relazioni tecniche, planimetrie..."></textarea></div>
       </div>
 
+      <!-- 3. EE -->
       <div class="card">
-        <h2 class="section-title">3. ANALISI BOLLETTE: ENERGIA ELETTRICA</h2>
-        <div class="grid" style="margin-bottom: 14px;">
+        <h2 class="section-title">3. Energia Elettrica</h2>
+        <div class="grid" style="margin-bottom: 20px;">
           <div class="field"><label>Fornitore Attuale E.E.</label><input name="fornitoreEE"></div>
-          <div class="field"><label>Note Generali Contratto E.E.</label><input name="noteContrattoEE" placeholder="Es. Scadenza, penali ricorrenti..."></div>
+          <div class="field"><label>Note Contratto E.E.</label><input name="noteContrattoEE" placeholder="Es. Scadenza, penali ricorrenti..."></div>
         </div>
         <div id="ee-bills-container"></div>
-        <button type="button" class="btn-add" onclick="addEEBill()">+ AGGIUNGI BOLLETTA ELETTRICA</button>
+        <button type="button" class="btn-add" onclick="addEEBill()">+ Aggiungi Bolletta Elettrica</button>
       </div>
 
+      <!-- 4. GAS -->
       <div class="card">
-        <h2 class="section-title">4. ANALISI BOLLETTE: GAS METANO</h2>
-        <div class="grid" style="margin-bottom: 14px;">
+        <h2 class="section-title">4. Gas Metano</h2>
+        <div class="grid" style="margin-bottom: 20px;">
           <div class="field"><label>Fornitore Attuale Gas</label><input name="fornitoreGas"></div>
-          <div class="field"><label>Note Generali Contratto Gas</label><input name="noteContrattoGas"></div>
+          <div class="field"><label>Note Contratto Gas</label><input name="noteContrattoGas"></div>
         </div>
         <div id="gas-bills-container"></div>
-        <button type="button" class="btn-add" onclick="addGasBill()">+ AGGIUNGI BOLLETTA GAS</button>
+        <button type="button" class="btn-add" onclick="addGasBill()">+ Aggiungi Bolletta Gas</button>
       </div>
 
+      <!-- 5. ACQUA -->
       <div class="card">
-        <h2 class="section-title">5. ANALISI BOLLETTE: ACQUA</h2>
-        <div class="grid" style="margin-bottom: 14px;">
+        <h2 class="section-title">5. Risorsa Idrica</h2>
+        <div class="grid" style="margin-bottom: 20px;">
           <div class="field"><label>Fornitore Attuale Acqua</label><input name="fornitoreAcqua"></div>
-          <div class="field"><label>Uso prevalente</label><input name="usoAcqua" placeholder="Es. Processo, Servizi igienici, Irrigazione..."></div>
+          <div class="field"><label>Uso prevalente</label><input name="usoAcqua" placeholder="Es. Processo, Servizi igienici..."></div>
         </div>
         <div id="water-bills-container"></div>
-        <button type="button" class="btn-add" onclick="addWaterBill()">+ AGGIUNGI BOLLETTA ACQUA</button>
+        <button type="button" class="btn-add" onclick="addWaterBill()">+ Aggiungi Bolletta Acqua</button>
       </div>
 
+      <!-- 6. INVOLUCRO -->
       <div class="card">
-        <h2 class="section-title">6. INVOLUCRO EDILIZIO (PARETI E SERRAMENTI)</h2>
+        <h2 class="section-title">6. Involucro Edilizio</h2>
         <div class="grid-3">
           <div class="field"><label>Tipologia pareti esterne</label><select name="tipologiaPareti"><option value=""></option><option>Pannelli prefabbricati c.a.</option><option>Muratura</option><option>Pannelli Sandwich</option><option>Altro</option></select></div>
           <div class="field"><label>Isolamento termico pareti</label><select name="isolamentoPareti"><option value=""></option><option>Sì</option><option>No</option><option>Non noto</option></select></div>
           <div class="field"><label>Stato conservativo pareti</label><select name="statoPareti"><option value=""></option><option>Buono</option><option>Discreto</option><option>Degrado/Infiltrazioni</option></select></div>
           
-          <div class="field"><label>Serramenti e Vetrate</label><input name="serramenti" placeholder="Es. Alluminio vetro singolo, PVC..."></div>
-          <div class="field"><label>Portoni industriali</label><input name="portoni" placeholder="Es. Sezionali, a libro, rapidi..."></div>
+          <div class="field"><label>Serramenti e Vetrate</label><input name="serramenti" placeholder="Es. Alluminio vetro singolo..."></div>
+          <div class="field"><label>Portoni industriali</label><input name="portoni" placeholder="Es. Sezionali, a libro..."></div>
           <div class="field"><label>Tenuta serramenti/portoni</label><select name="statoSerramenti"><option value=""></option><option>Buona</option><option>Spifferi/Dispersioni</option><option>Da sostituire</option></select></div>
         </div>
-        <div class="field full" style="margin-top:14px;"><label>Criticità involucro verticale</label><textarea name="criticitaInvolucro" placeholder="Ponti termici evidenti, degrado guarnizioni, umidità..."></textarea></div>
+        <div class="field full" style="margin-top:16px;"><label>Criticità involucro verticale</label><textarea name="criticitaInvolucro" placeholder="Ponti termici evidenti, degrado guarnizioni, umidità..."></textarea></div>
       </div>
 
+      <!-- 7. COPERTURA -->
       <div class="card">
-        <h2 class="section-title">7. COPERTURA E IMPERMEABILIZZAZIONE</h2>
+        <h2 class="section-title">7. Copertura e Impermeabilizzazione</h2>
         <div class="grid-3">
-          <div class="field"><label>Tipologia copertura (Struttura)</label><select name="tipologiaCopertura"><option value=""></option><option>Tegoli prefabbricati (Y, TT...)</option><option>Lamiera grecata/aggraffata</option><option>Pannelli sandwich</option><option>Laterocemento</option><option>Altro</option></select></div>
-          <div class="field"><label>Stato strutturale copertura</label><select name="statoCopertura"><option value=""></option><option>Buono</option><option>Discreto</option><option>Scarso</option><option>Critico</option></select></div>
+          <div class="field"><label>Tipologia struttura tetto</label><select name="tipologiaCopertura"><option value=""></option><option>Tegoli prefabbricati (Y, TT...)</option><option>Lamiera grecata/aggraffata</option><option>Pannelli sandwich</option><option>Laterocemento</option><option>Altro</option></select></div>
+          <div class="field"><label>Stato strutturale</label><select name="statoCopertura"><option value=""></option><option>Buono</option><option>Discreto</option><option>Scarso</option><option>Critico</option></select></div>
           <div class="field"><label>Isolamento termico tetto</label><select name="isolamentoCopertura"><option value=""></option><option>Sì</option><option>No</option><option>Non noto</option></select></div>
           
-          <div class="field"><label>Tipo Impermeabilizzazione</label><input name="tipoImpermeabilizzazione" placeholder="Es. Guaina bituminosa, TPO, PVC..."></div>
-          <div class="field"><label>Stato Impermeabilizzazione</label><select name="statoImpermeabilizzazione"><option value=""></option><option>Integra / Recente</option><option>Micro-lesioni / Usurata</option><option>Infiltrazioni attive</option><option>Da rifare</option></select></div>
+          <div class="field"><label>Tipo Impermeabilizzazione</label><input name="tipoImpermeabilizzazione" placeholder="Es. Guaina bituminosa, TPO..."></div>
+          <div class="field"><label>Stato Impermeabilizz.</label><select name="statoImpermeabilizzazione"><option value=""></option><option>Integra / Recente</option><option>Micro-lesioni / Usurata</option><option>Infiltrazioni attive</option><option>Da rifare</option></select></div>
           <div class="field"><label>Linea Vita / Sicurezza</label><select name="lineaVita"><option value=""></option><option>Presente e certificata</option><option>Assente</option><option>Da revisionare/adeguare</option></select></div>
 
           <div class="field"><label>Lucernari / Cupolini</label><select name="tipoLucernari"><option value=""></option><option>Policarbonato alveolare</option><option>Vetroresina</option><option>Vetro</option><option>Assenti</option></select></div>
           <div class="field"><label>Stato Lucernari</label><select name="statoLucernari"><option value=""></option><option>Ottimo / Nuovi</option><option>Opacizzati (scarsa luce)</option><option>Danneggiati / Infiltrazioni</option></select></div>
           <div class="field"><label>Superficie lucernari [m²]</label><input type="number" step="0.1" name="superficieLucernari"></div>
         </div>
-        <div class="grid" style="margin-top:14px;">
-          <div class="field"><label>Presenza amianto in copertura</label><select name="amianto"><option value=""></option><option>No</option><option>Sì</option><option>Da verificare</option></select></div>
-          <div class="field"><label>Superficie amianto stimata [m²]</label><input type="number" step="1" name="superficieAmianto" placeholder="Compilare se presente"></div>
-          <div class="field full"><label>Note Copertura</label><textarea name="noteCopertura" placeholder="Evacuatori fumo (EFC) presenti, ostacoli in copertura, pendenza stimata..."></textarea></div>
+        <div class="grid" style="margin-top:16px;">
+          <div class="field"><label>Presenza amianto</label><select name="amianto"><option value=""></option><option>No</option><option>Sì</option><option>Da verificare</option></select></div>
+          <div class="field"><label>Sup. amianto stimata [m²]</label><input type="number" step="1" name="superficieAmianto" placeholder="Compilare se presente"></div>
+          <div class="field full"><label>Note Copertura</label><textarea name="noteCopertura" placeholder="Evacuatori fumo (EFC) presenti, ostacoli, pendenza..."></textarea></div>
         </div>
       </div>
 
+      <!-- 8. STRUTTURA -->
       <div class="card">
-        <h2 class="section-title">8. STRUTTURA</h2>
+        <h2 class="section-title">8. Struttura</h2>
         <div class="grid">
           <div class="field"><label>Tipologia strutturale</label><select name="tipologiaStruttura"><option value=""></option><option>Prefabbricato in c.a.</option><option>Acciaio</option><option>Muratura portante</option><option>Struttura mista</option></select></div>
-          <div class="field"><label>Relazione strutturale disponibile</label><select name="relazioneStrutturale"><option value=""></option><option>Sì</option><option>No</option><option>Parziale</option></select></div>
-          <div class="field"><label>Carico disponibile copertura [kg/m²]</label><input type="number" step="0.1" name="caricoCopertura"></div>
-          <div class="field"><label>Presenza verifiche sismiche</label><select name="verificheSismiche"><option value=""></option><option>Sì</option><option>No</option><option>Da verificare</option></select></div>
+          <div class="field"><label>Relazione strutturale</label><select name="relazioneStrutturale"><option value=""></option><option>Sì</option><option>No</option><option>Parziale</option></select></div>
+          <div class="field"><label>Carico utile tetto [kg/m²]</label><input type="number" step="0.1" name="caricoCopertura"></div>
+          <div class="field"><label>Verifiche sismiche</label><select name="verificheSismiche"><option value=""></option><option>Sì</option><option>No</option><option>Da verificare</option></select></div>
         </div>
-        <div class="field full" style="margin-top:14px;">
+        <div class="field full" style="margin-top:16px;">
           <label>Problemi strutturali rilevati</label>
           <div class="check-grid">
             <label class="check-item"><input type="checkbox" name="fessurazioni">Fessurazioni</label>
@@ -382,13 +568,14 @@
             <label class="check-item"><input type="checkbox" name="ferriEsposti">Ferri esposti / corrosione</label>
             <label class="check-item"><input type="checkbox" name="cedimenti">Cedimenti</label>
             <label class="check-item"><input type="checkbox" name="infiltrazioniStruttura">Infiltrazioni strutturali</label>
-            <label class="check-item"><input type="checkbox" name="collegamentiCritici">Collegamenti strutturali critici</label>
+            <label class="check-item"><input type="checkbox" name="collegamentiCritici">Collegamenti critici</label>
           </div>
         </div>
       </div>
 
+      <!-- 9. IMPIANTO ELETTRICO -->
       <div class="card">
-        <h2 class="section-title">9. IMPIANTO ELETTRICO GENERALE</h2>
+        <h2 class="section-title">9. Impianto Elettrico</h2>
         <div class="grid-3">
           <div class="field"><label>Fornitura</label><input name="fornituraElettrica" placeholder="BT / MT"></div>
           <div class="field"><label>Potenza impegnata [kW]</label><input type="number" step="0.1" name="potenzaImpegnata"></div>
@@ -397,13 +584,13 @@
           <div class="field"><label>Trasformatore [kVA]</label><input type="number" step="0.1" name="trasformatore"></div>
           <div class="field"><label>Quadri elettrici</label><select name="statoQuadri"><option value=""></option><option>Buoni</option><option>Discreti</option><option>Obsoleti</option><option>Critici</option></select></div>
           <div class="field"><label>Illuminazione prevalente</label><select name="illuminazione"><option value=""></option><option>LED</option><option>Neon</option><option>Sodio</option><option>Mista</option></select></div>
-          <div class="field"><label>Sistemi di Monitoraggio (BMS)</label><select name="monitoraggio"><option value=""></option><option>Sì, globale</option><option>Sì, parziale</option><option>No</option></select></div>
+          <div class="field"><label>Sistema Monitoraggio (BMS)</label><select name="monitoraggio"><option value=""></option><option>Sì, globale</option><option>Sì, parziale</option><option>No</option></select></div>
         </div>
       </div>
 
+      <!-- 10. PROCESSI PRODUTTIVI -->
       <div class="card">
-        <h2 class="section-title">10. PROCESSI PRODUTTIVI E FORZA MOTRICE</h2>
-        <p style="font-size: 0.9rem; color: var(--muted); margin-top: -8px; margin-bottom: 14px;">Infrastrutture e logistica collegate alla produzione.</p>
+        <h2 class="section-title">10. Processi Produttivi e Forza Motrice</h2>
         
         <h3 class="section-subtitle">Aria Compressa</h3>
         <div class="grid-3">
@@ -412,7 +599,7 @@
           <div class="field"><label>Modello</label><input name="modelloCompressori"></div>
           <div class="field"><label>Anno Installazione</label><input type="number" name="annoCompressori"></div>
           <div class="field"><label>Potenza Elettrica Max [kWe]</label><input type="number" step="0.1" name="potenzaElettricaCompressori"></div>
-          <div class="field"><label>Recupero Termico</label><select name="recuperoCompressori"><option value=""></option><option>Sì</option><option>No</option><option>Non applicabile</option></select></div>
+          <div class="field"><label>Recupero Termico</label><select name="recuperoCompressori"><option value=""></option><option>Sì</option><option>No</option><option>N/A</option></select></div>
         </div>
 
         <h3 class="section-subtitle">Frigo di Processo / Chiller</h3>
@@ -422,97 +609,104 @@
           <div class="field"><label>Modello</label><input name="modelloChiller"></div>
           <div class="field"><label>Anno Installazione</label><input type="number" name="annoChiller"></div>
           <div class="field"><label>Potenza Elettrica Max [kWe]</label><input type="number" step="0.1" name="potenzaElettricaChiller"></div>
-          <div class="field"><label>Calore di Processo (Vapore/Olio)</label><select name="caloreProcesso"><option value=""></option><option>Sì</option><option>No</option></select></div>
+          <div class="field"><label>Calore di Processo</label><select name="caloreProcesso"><option value=""></option><option>Sì</option><option>No</option></select></div>
         </div>
 
         <h3 class="section-subtitle">Forza Motrice e Logistica</h3>
         <div class="grid-3">
           <div class="field"><label>Grossi Motori / Presse</label><select name="grossiMotori"><option value=""></option><option>Presenti</option><option>Assenti</option></select></div>
-          <div class="field"><label>Utilizzo Inverter su Motori</label><select name="inverterMotori"><option value=""></option><option>Ampiamente diffuso</option><option>Parziale</option><option>Assente</option></select></div>
-          <div class="field"><label>Carrelli Elevatori (Muletti)</label><select name="muletti"><option value=""></option><option>Elettrici</option><option>Diesel/Gas</option><option>Misti</option><option>Assenti</option></select></div>
-          <div class="field"><label>Colonnine Ricarica Auto (EV)</label><select name="colonnineEV"><option value=""></option><option>Presenti</option><option>Previste</option><option>Assenti</option></select></div>
+          <div class="field"><label>Utilizzo Inverter su Motori</label><select name="inverterMotori"><option value=""></option><option>Diffuso</option><option>Parziale</option><option>Assente</option></select></div>
+          <div class="field"><label>Carrelli Elevatori</label><select name="muletti"><option value=""></option><option>Elettrici</option><option>Diesel/Gas</option><option>Misti</option><option>Assenti</option></select></div>
+          <div class="field"><label>Colonnine Ricarica Auto</label><select name="colonnineEV"><option value=""></option><option>Presenti</option><option>Previste</option><option>Assenti</option></select></div>
         </div>
       </div>
 
+      <!-- 11. CARICHI INTERNI -->
       <div class="card">
-        <h2 class="section-title">11. CARICHI INTERNI DI PROCESSO</h2>
-        <p style="font-size: 0.9rem; color: var(--muted); margin-top: -8px; margin-bottom: 14px;">Forni industriali, macchine utensili CNC, saldatrici, estrusori, cabine verniciatura, ecc.</p>
-        
+        <h2 class="section-title">11. Macchinari e Carichi Termici</h2>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin: -10px 0 16px 0;">Forni, macchine utensili CNC, estrusori, cabine di verniciatura, ecc.</p>
         <div id="loads-container"></div>
-        <button type="button" class="btn-add" onclick="addLoad()">+ AGGIUNGI CARICO INTERNO</button>
+        <button type="button" class="btn-add" onclick="addLoad()">+ Aggiungi Macchinario / Carico</button>
       </div>
 
+      <!-- 12. HVAC -->
       <div class="card">
-        <h2 class="section-title">12. CLIMATIZZAZIONE (HVAC)</h2>
-        <p style="font-size: 0.9rem; color: var(--muted); margin-top: -8px; margin-bottom: 14px;">Sistemi di riscaldamento, raffrescamento e ventilazione degli ambienti.</p>
-        
+        <h2 class="section-title">12. Climatizzazione (HVAC)</h2>
         <div id="hvac-container"></div>
-        <button type="button" class="btn-add" onclick="addHVAC()">+ AGGIUNGI UNITÀ HVAC</button>
+        <button type="button" class="btn-add" onclick="addHVAC()">+ Aggiungi Unità HVAC</button>
       </div>
 
+      <!-- 13. ANTINCENDIO -->
       <div class="card">
-        <h2 class="section-title">13. ANTINCENDIO</h2>
+        <h2 class="section-title">13. Prevenzione Incendi</h2>
         <div class="grid-3">
           <div class="field"><label>Attività soggetta VV.F.</label><select name="vvf"><option value=""></option><option>Sì</option><option>No</option><option>Da verificare</option></select></div>
           <div class="field"><label>Categoria</label><input name="categoriaVvf" placeholder="A / B / C"></div>
-          <div class="field"><label>CPI disponibile</label><select name="cpi"><option value=""></option><option>Sì</option><option>No</option><option>Scaduto</option></select></div>
+          <div class="field"><label>CPI disponibile / Valido</label><select name="cpi"><option value=""></option><option>Sì</option><option>No</option><option>Scaduto</option></select></div>
         </div>
       </div>
 
+      <!-- 14. FOTOVOLTAICO -->
       <div class="card">
-        <h2 class="section-title">14. POTENZIALITÀ FOTOVOLTAICA</h2>
+        <h2 class="section-title">14. Potenzialità Fotovoltaica</h2>
         <div class="grid-3">
-          <div class="field"><label>Superficie copertura utile [m²]</label><input type="number" step="0.1" name="superficieUtileFV"></div>
+          <div class="field"><label>Superficie tetto utile [m²]</label><input type="number" step="0.1" name="superficieUtileFV"></div>
           <div class="field"><label>Orientamento prevalente</label><input name="orientamentoFV"></div>
           <div class="field"><label>Ombreggiamenti</label><select name="ombreggiamenti"><option value=""></option><option>Assenti</option><option>Limitati</option><option>Significativi</option></select></div>
-          <div class="field"><label>Tipo di allaccio alla rete</label><input name="allaccioReteFV" placeholder="Es. Esistente BT, Da creare in MT..."></div>
+          <div class="field"><label>Punto allaccio rete</label><input name="allaccioReteFV" placeholder="Es. Esistente BT, Da creare MT..."></div>
           <div class="field"><label>Autoconsumo potenziale</label><select name="autoconsumo"><option value=""></option><option>Alto</option><option>Medio</option><option>Basso</option></select></div>
-          <div class="field"><label>Compatibilità strutturale FV</label><select name="compatibilitaFV"><option value=""></option><option>Favorevole</option><option>Da verificare</option><option>Critica</option></select></div>
+          <div class="field"><label>Compatibilità strutturale</label><select name="compatibilitaFV"><option value=""></option><option>Favorevole</option><option>Da verificare</option><option>Critica</option></select></div>
         </div>
       </div>
 
+      <!-- 15. INTERVENTI -->
       <div class="card">
-        <h2 class="section-title">15. INTERVENTI IPOTIZZABILI</h2>
+        <h2 class="section-title">15. Interventi Ipotizzabili</h2>
         <div class="field full">
           <div class="check-grid">
             <label class="check-item"><input type="checkbox" name="intIsolamento">Isolamento involucro</label>
-            <label class="check-item"><input type="checkbox" name="intBonificaAmianto">Bonifica Amianto in copertura</label>
+            <label class="check-item"><input type="checkbox" name="intBonificaAmianto">Bonifica Amianto</label>
             <label class="check-item"><input type="checkbox" name="intSostituzioneLucernari">Sostituzione Lucernari</label>
-            <label class="check-item"><input type="checkbox" name="intSerramenti">Sostituzione serramenti/portoni</label>
-            <label class="check-item"><input type="checkbox" name="intRevampingElettrico">Revamping quadri / trafo</label>
+            <label class="check-item"><input type="checkbox" name="intSerramenti">Nuovi serramenti/portoni</label>
+            <label class="check-item"><input type="checkbox" name="intRevampingElettrico">Revamping quadri/trafo</label>
             <label class="check-item"><input type="checkbox" name="intLed">Relamping LED</label>
-            <label class="check-item"><input type="checkbox" name="intInverter">Inverter su motori / compressori</label>
+            <label class="check-item"><input type="checkbox" name="intInverter">Inverter motori/compressori</label>
             <label class="check-item"><input type="checkbox" name="intPompaCalore">Pompa di calore (HVAC)</label>
-            <label class="check-item"><input type="checkbox" name="intRecuperoCalore">Recupero calore di processo</label>
-            <label class="check-item"><input type="checkbox" name="intBms">Monitoraggio / ISO 50001</label>
+            <label class="check-item"><input type="checkbox" name="intRecuperoCalore">Recupero calore processo</label>
+            <label class="check-item"><input type="checkbox" name="intBms">Monitoraggio (BMS)</label>
             <label class="check-item"><input type="checkbox" name="intFotovoltaico">Impianto fotovoltaico</label>
           </div>
         </div>
       </div>
 
+      <!-- 16. NOTE FINALI -->
       <div class="card">
-        <h2 class="section-title">16. NOTE FINALI E DOCUMENTAZIONE</h2>
+        <h2 class="section-title">16. Documentazione & Note</h2>
         <div class="grid">
           <div class="field">
-            <label>Acquisisci Fotografie (da fotocamera o galleria)</label>
+            <label>Acquisisci Fotografie</label>
             <input type="file" name="foto" accept="image/*" capture="environment" multiple>
-            <div class="note" style="font-size: 0.85rem; color: #6b7280; margin-top: 4px;">N.B. Le foto non vengono salvate nel CSV, rimangono sul dispositivo.</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 6px;">
+              I file rimangono sul dispositivo locale e non vanno nel CSV.
+            </div>
           </div>
-          <div class="field"><label>Rilievi / misure eseguite</label><input name="rilieviEseguiti" placeholder="Es. Termografia, misurazione lux, rilievo laser..."></div>
-          <div class="field full"><label>Note finali</label><textarea name="noteFinali"></textarea></div>
-          <div class="field full"><label>Prossimi passi</label><textarea name="prossimiPassi" placeholder="Richiedere documentazione, proposta economica..."></textarea></div>
+          <div class="field"><label>Rilievi / Misure Eseguite</label><input name="rilieviEseguiti" placeholder="Termografia, misurazione lux..."></div>
+          <div class="field full"><label>Note Aggiuntive</label><textarea name="noteFinali"></textarea></div>
+          <div class="field full"><label>Prossimi Passi (Action Item)</label><textarea name="prossimiPassi" placeholder="Richiedere APE, formulare proposta..."></textarea></div>
         </div>
       </div>
+      
     </form>
 
     <div class="footer-copyright">
       &copy; <span id="annoCorrente"></span> HUB Società di Ingegneria S.r.l. - Tutti i diritti riservati.<br>
-      <small>Modello riservato per uso aziendale interno.</small>
+      <small style="opacity: 0.7;">Applicativo riservato ad uso aziendale interno.</small>
     </div>
 
   </div>
 
   <script>
+    // Inserisce l'anno corrente
     document.getElementById('annoCorrente').textContent = new Date().getFullYear();
 
     const form = document.getElementById('checklistForm');
@@ -520,13 +714,11 @@
     
     // --- GESTIONE LOGIN / PASSWORD ---
     document.addEventListener("DOMContentLoaded", () => {
-      // Se l'utente si è già autenticato in questa sessione, mostra il modulo
       if (sessionStorage.getItem('hub_auth') === 'true') {
         document.getElementById('login-overlay').style.display = 'none';
         document.getElementById('main-content').style.display = 'block';
       }
       
-      // Inizializza i campi dinamici di base
       addEEBill();
       addGasBill();
       addWaterBill();
@@ -534,51 +726,55 @@
       addHVAC();
     });
 
-    // Permette di premere "Invio" sulla tastiera per fare il login
     document.getElementById('password-input').addEventListener('keypress', function (e) {
-      if (e.key === 'Enter') {
-        checkPassword();
-      }
+      if (e.key === 'Enter') checkPassword();
     });
 
     function checkPassword() {
       const pwd = document.getElementById('password-input').value;
       if (pwd === 'HUB2026') {
         sessionStorage.setItem('hub_auth', 'true');
-        document.getElementById('login-overlay').style.display = 'none';
-        document.getElementById('main-content').style.display = 'block';
+        // Fade out transition
+        const overlay = document.getElementById('login-overlay');
+        overlay.style.opacity = '0';
+        setTimeout(() => {
+          overlay.style.display = 'none';
+          document.getElementById('main-content').style.display = 'block';
+        }, 300);
       } else {
         document.getElementById('login-error').style.display = 'block';
       }
     }
 
+    // --- TEMPLATE PER I BLOCCHI DINAMICI ---
+    // Definiamo uno stile comune inline per il box dinamico
+    const dynamicBoxStyle = `background: #ffffff; border: 1px solid var(--border); border-left: 4px solid var(--primary); border-radius: var(--radius-sm); padding: 20px; margin-bottom: 16px; box-shadow: var(--shadow-sm);`;
 
-    // Contatori per i blocchi dinamici
     let eeBillCount = 0;
     let gasBillCount = 0;
     let waterBillCount = 0;
     let hvacCount = 0;
     let loadCount = 0;
 
-    // --- FUNZIONI PER BOLLETTE EE DINAMICHE ---
+    // --- EE ---
     function addEEBill(forceId = null) {
       if (forceId !== null) { eeBillCount = forceId; } else { eeBillCount++; }
       const container = document.getElementById('ee-bills-container');
       const removeBtn = eeBillCount > 1 
-        ? `<button type="button" onclick="removeEEBill(${eeBillCount})" style="background: transparent; color: var(--danger); border: none; font-size: 0.95rem; cursor: pointer; font-weight: bold; text-decoration: underline;">✖ Rimuovi</button>` : `<span></span>`;
+        ? `<button type="button" onclick="removeEEBill(${eeBillCount})" style="background: transparent; color: var(--danger); padding:0; border: none; font-size: 0.9rem; cursor: pointer;">Rimuovi ✕</button>` : `<span></span>`;
 
       const html = `
-        <div id="ee-bill-${eeBillCount}" style="background: #fafafa; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px; margin-bottom: 14px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px dashed #d1d5db; padding-bottom: 8px;">
-            <h3 style="margin: 0; font-size: 1.05rem; color: var(--primary-dark);">Bolletta EE #${eeBillCount}</h3>
+        <div id="ee-bill-${eeBillCount}" style="${dynamicBoxStyle}">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <h3 style="margin: 0; font-size: 1.05rem; color: var(--text-main);">Bolletta Elettrica #${eeBillCount}</h3>
             ${removeBtn}
           </div>
           <div class="grid-3">
-            <div class="field"><label>Mese/Periodo di Rif.</label><input name="periodoEE_${eeBillCount}" placeholder="Es. Gen 2024, I Bim..."></div>
+            <div class="field"><label>Mese/Periodo di Rif.</label><input name="periodoEE_${eeBillCount}"></div>
             <div class="field"><label>Consumo [kWh]</label><input type="number" step="1" name="consumoEE_${eeBillCount}"></div>
             <div class="field"><label>Costo Totale [€]</label><input type="number" step="0.01" name="costoEE_${eeBillCount}"></div>
-            <div class="field"><label>Potenza Max Prelevata [kW]</label><input type="number" step="0.1" name="piccoEE_${eeBillCount}" placeholder="Se indicata"></div>
-            <div class="field"><label>Energia Reattiva [kVARh]</label><input type="number" step="1" name="reattivaEE_${eeBillCount}" placeholder="Se presente penale"></div>
+            <div class="field"><label>Potenza Max Prelevata [kW]</label><input type="number" step="0.1" name="piccoEE_${eeBillCount}"></div>
+            <div class="field"><label>Energia Reattiva [kVARh]</label><input type="number" step="1" name="reattivaEE_${eeBillCount}"></div>
             <div class="field"><label>Altre info / Note</label><input name="noteSingolaEE_${eeBillCount}"></div>
           </div>
         </div>
@@ -587,21 +783,21 @@
     }
     function removeEEBill(id) { const unit = document.getElementById(`ee-bill-${id}`); if (unit) unit.remove(); }
 
-    // --- FUNZIONI PER BOLLETTE GAS DINAMICHE ---
+    // --- GAS ---
     function addGasBill(forceId = null) {
       if (forceId !== null) { gasBillCount = forceId; } else { gasBillCount++; }
       const container = document.getElementById('gas-bills-container');
       const removeBtn = gasBillCount > 1 
-        ? `<button type="button" onclick="removeGasBill(${gasBillCount})" style="background: transparent; color: var(--danger); border: none; font-size: 0.95rem; cursor: pointer; font-weight: bold; text-decoration: underline;">✖ Rimuovi</button>` : `<span></span>`;
+        ? `<button type="button" onclick="removeGasBill(${gasBillCount})" style="background: transparent; color: var(--danger); padding:0; border: none; font-size: 0.9rem; cursor: pointer;">Rimuovi ✕</button>` : `<span></span>`;
 
       const html = `
-        <div id="gas-bill-${gasBillCount}" style="background: #fafafa; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px; margin-bottom: 14px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px dashed #d1d5db; padding-bottom: 8px;">
-            <h3 style="margin: 0; font-size: 1.05rem; color: var(--primary-dark);">Bolletta Gas #${gasBillCount}</h3>
+        <div id="gas-bill-${gasBillCount}" style="${dynamicBoxStyle}">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <h3 style="margin: 0; font-size: 1.05rem; color: var(--text-main);">Bolletta Gas #${gasBillCount}</h3>
             ${removeBtn}
           </div>
           <div class="grid-3">
-            <div class="field"><label>Mese/Periodo di Rif.</label><input name="periodoGas_${gasBillCount}" placeholder="Es. Gen 2024, I Bim..."></div>
+            <div class="field"><label>Mese/Periodo di Rif.</label><input name="periodoGas_${gasBillCount}"></div>
             <div class="field"><label>Consumo [Smc]</label><input type="number" step="1" name="consumoGas_${gasBillCount}"></div>
             <div class="field"><label>Costo Totale [€]</label><input type="number" step="0.01" name="costoGas_${gasBillCount}"></div>
             <div class="field full"><label>Altre info / Note</label><input name="noteSingolaGas_${gasBillCount}"></div>
@@ -612,24 +808,24 @@
     }
     function removeGasBill(id) { const unit = document.getElementById(`gas-bill-${id}`); if (unit) unit.remove(); }
 
-    // --- FUNZIONI PER BOLLETTE ACQUA DINAMICHE ---
+    // --- ACQUA ---
     function addWaterBill(forceId = null) {
       if (forceId !== null) { waterBillCount = forceId; } else { waterBillCount++; }
       const container = document.getElementById('water-bills-container');
       const removeBtn = waterBillCount > 1 
-        ? `<button type="button" onclick="removeWaterBill(${waterBillCount})" style="background: transparent; color: var(--danger); border: none; font-size: 0.95rem; cursor: pointer; font-weight: bold; text-decoration: underline;">✖ Rimuovi</button>` : `<span></span>`;
+        ? `<button type="button" onclick="removeWaterBill(${waterBillCount})" style="background: transparent; color: var(--danger); padding:0; border: none; font-size: 0.9rem; cursor: pointer;">Rimuovi ✕</button>` : `<span></span>`;
 
       const html = `
-        <div id="water-bill-${waterBillCount}" style="background: #fafafa; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px; margin-bottom: 14px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px dashed #d1d5db; padding-bottom: 8px;">
-            <h3 style="margin: 0; font-size: 1.05rem; color: var(--primary-dark);">Bolletta Acqua #${waterBillCount}</h3>
+        <div id="water-bill-${waterBillCount}" style="${dynamicBoxStyle}">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <h3 style="margin: 0; font-size: 1.05rem; color: var(--text-main);">Bolletta Acqua #${waterBillCount}</h3>
             ${removeBtn}
           </div>
           <div class="grid-3">
             <div class="field"><label>Mese/Periodo di Rif.</label><input name="periodoAcqua_${waterBillCount}"></div>
             <div class="field"><label>Consumo [m³]</label><input type="number" step="1" name="consumoAcqua_${waterBillCount}"></div>
             <div class="field"><label>Costo Totale [€]</label><input type="number" step="0.01" name="costoAcqua_${waterBillCount}"></div>
-            <div class="field full"><label>Altre info / Note (es. Depurazione)</label><input name="noteSingolaAcqua_${waterBillCount}"></div>
+            <div class="field full"><label>Altre info / Note</label><input name="noteSingolaAcqua_${waterBillCount}"></div>
           </div>
         </div>
       `;
@@ -637,60 +833,58 @@
     }
     function removeWaterBill(id) { const unit = document.getElementById(`water-bill-${id}`); if (unit) unit.remove(); }
 
-
-    // --- FUNZIONI PER CARICHI INTERNI DINAMICI ---
+    // --- CARICHI INTERNI ---
     function addLoad(forceId = null) {
       if (forceId !== null) { loadCount = forceId; } else { loadCount++; }
       const container = document.getElementById('loads-container');
       const removeBtn = loadCount > 1 
-        ? `<button type="button" onclick="removeLoad(${loadCount})" style="background: transparent; color: var(--danger); border: none; font-size: 0.95rem; cursor: pointer; font-weight: bold; text-decoration: underline;">✖ Rimuovi</button>` : `<span></span>`;
+        ? `<button type="button" onclick="removeLoad(${loadCount})" style="background: transparent; color: var(--danger); padding:0; border: none; font-size: 0.9rem; cursor: pointer;">Rimuovi ✕</button>` : `<span></span>`;
 
       const html = `
-        <div id="load-unit-${loadCount}" style="background: #fafafa; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px; margin-bottom: 14px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px dashed #d1d5db; padding-bottom: 8px;">
-            <h3 style="margin: 0; font-size: 1.1rem; color: var(--primary-dark);">Carico / Macchinario #${loadCount}</h3>
+        <div id="load-unit-${loadCount}" style="${dynamicBoxStyle}">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <h3 style="margin: 0; font-size: 1.05rem; color: var(--text-main);">Macchinario #${loadCount}</h3>
             ${removeBtn}
           </div>
           <div class="grid-3">
-            <div class="field"><label>Descrizione Apparecchio</label><input name="tipoCarico_${loadCount}" placeholder="Es. Forno, CNC, Pressa..."></div>
+            <div class="field"><label>Descrizione Apparecchio</label><input name="tipoCarico_${loadCount}" placeholder="Es. Forno, CNC..."></div>
             <div class="field"><label>Marca / Modello</label><input name="marcaCarico_${loadCount}"></div>
             <div class="field"><label>Anno Installazione</label><input type="number" name="annoCarico_${loadCount}"></div>
             <div class="field"><label>Potenza Elettrica Max [kWe]</label><input type="number" step="0.1" name="potenzaElettricaCarico_${loadCount}"></div>
-            <div class="field"><label>Potenza Termica Max [kWt]</label><input type="number" step="0.1" name="potenzaTermicaCarico_${loadCount}" placeholder="Se applicabile"></div>
-            <div class="field"><label>Ore utilizzo / Turni</label><input name="oreCarico_${loadCount}" placeholder="Es. 3 turni, 4000h/anno"></div>
+            <div class="field"><label>Potenza Termica Max [kWt]</label><input type="number" step="0.1" name="potenzaTermicaCarico_${loadCount}"></div>
+            <div class="field"><label>Ore utilizzo / Turni</label><input name="oreCarico_${loadCount}"></div>
           </div>
-          <div class="field full" style="margin-top: 10px;"><label>Note (Fattore di carico, ecc.)</label><input name="noteCarico_${loadCount}"></div>
+          <div class="field full" style="margin-top: 16px;"><label>Note</label><input name="noteCarico_${loadCount}"></div>
         </div>
       `;
       container.insertAdjacentHTML('beforeend', html);
     }
     function removeLoad(id) { const unit = document.getElementById(`load-unit-${id}`); if (unit) unit.remove(); }
 
-
-    // --- FUNZIONI PER CAMPI HVAC DINAMICI ---
+    // --- HVAC ---
     function addHVAC(forceId = null) {
       if (forceId !== null) { hvacCount = forceId; } else { hvacCount++; }
       const container = document.getElementById('hvac-container');
       const removeBtn = hvacCount > 1 
-        ? `<button type="button" onclick="removeHVAC(${hvacCount})" style="background: transparent; color: var(--danger); border: none; font-size: 0.95rem; cursor: pointer; font-weight: bold; text-decoration: underline;">✖ Rimuovi</button>` : `<span></span>`;
+        ? `<button type="button" onclick="removeHVAC(${hvacCount})" style="background: transparent; color: var(--danger); padding:0; border: none; font-size: 0.9rem; cursor: pointer;">Rimuovi ✕</button>` : `<span></span>`;
 
       const html = `
-        <div id="hvac-unit-${hvacCount}" style="background: #fafafa; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px; margin-bottom: 14px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px dashed #d1d5db; padding-bottom: 8px;">
-            <h3 style="margin: 0; font-size: 1.1rem; color: var(--primary-dark);">Unità HVAC #${hvacCount}</h3>
+        <div id="hvac-unit-${hvacCount}" style="${dynamicBoxStyle}">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <h3 style="margin: 0; font-size: 1.05rem; color: var(--text-main);">Unità HVAC #${hvacCount}</h3>
             ${removeBtn}
           </div>
           <div class="grid-3">
-            <div class="field"><label>Tipologia principale</label><input name="tipoImpiantoTermico_${hvacCount}" placeholder="Caldaia, rooftop, PdC, aerotermi..."></div>
+            <div class="field"><label>Tipologia principale</label><input name="tipoImpiantoTermico_${hvacCount}" placeholder="Caldaia, PdC, UTA..."></div>
             <div class="field"><label>Marca HVAC</label><input name="marcaHVAC_${hvacCount}"></div>
             <div class="field"><label>Modello HVAC</label><input name="modelloHVAC_${hvacCount}"></div>
-            <div class="field"><label>Locale di installazione</label><select name="localeInstallazioneHVAC_${hvacCount}"><option value=""></option><option>In ambiente climatizzato</option><option>In centrale termica / Vano tecnico</option><option>All'esterno</option><option>Altro</option></select></div>
-            <div class="field"><label>Locale servito</label><input name="localeServitoHVAC_${hvacCount}" placeholder="Es. uffici, officina, spogliatoi..."></div>
+            <div class="field"><label>Locale di installazione</label><select name="localeInstallazioneHVAC_${hvacCount}"><option value=""></option><option>In ambiente</option><option>Centrale termica</option><option>Esterno</option><option>Altro</option></select></div>
+            <div class="field"><label>Locale servito</label><input name="localeServitoHVAC_${hvacCount}"></div>
             <div class="field"><label>Anno installazione</label><input type="number" name="annoImpiantoTermico_${hvacCount}"></div>
             <div class="field"><label>Potenza Termica [kWt]</label><input type="number" step="0.1" name="potenzaTermica_${hvacCount}"></div>
             <div class="field"><label>Potenza Elettrica Max [kWe]</label><input type="number" step="0.1" name="potenzaElettricaHVAC_${hvacCount}"></div>
             <div class="field"><label>Combustibile / vettore</label><input name="combustibile_${hvacCount}"></div>
-            <div class="field"><label>Raffrescamento presente</label><select name="raffrescamento_${hvacCount}"><option value=""></option><option>Sì</option><option>No</option><option>Parziale</option></select></div>
+            <div class="field"><label>Raffrescamento</label><select name="raffrescamento_${hvacCount}"><option value=""></option><option>Sì</option><option>No</option><option>Parziale</option></select></div>
             <div class="field"><label>Ventilazione / UTA</label><select name="utaRecupero_${hvacCount}"><option value=""></option><option>Sì</option><option>No</option><option>Da verificare</option></select></div>
           </div>
         </div>
@@ -704,9 +898,7 @@
       const data = {};
       const formData = new FormData(form);
       for (const [key, value] of formData.entries()) {
-        if (key !== 'foto') {
-          data[key] = value;
-        }
+        if (key !== 'foto') data[key] = value;
       }
       form.querySelectorAll('input[type="checkbox"]').forEach(cb => {
         data[cb.name] = cb.checked;
@@ -738,59 +930,48 @@
         return Array.from(idSet).sort((a,b) => a-b);
       };
 
-      // Ricostruzione EE Bills
-      document.getElementById('ee-bills-container').innerHTML = '';
-      eeBillCount = 0;
+      document.getElementById('ee-bills-container').innerHTML = ''; eeBillCount = 0;
       let eeIds = extractIds('periodoEE_');
       if (eeIds.length === 0) addEEBill(); else eeIds.forEach(id => addEEBill(id));
 
-      // Ricostruzione Gas Bills
-      document.getElementById('gas-bills-container').innerHTML = '';
-      gasBillCount = 0;
+      document.getElementById('gas-bills-container').innerHTML = ''; gasBillCount = 0;
       let gasIds = extractIds('periodoGas_');
       if (gasIds.length === 0) addGasBill(); else gasIds.forEach(id => addGasBill(id));
 
-      // Ricostruzione Water Bills
-      document.getElementById('water-bills-container').innerHTML = '';
-      waterBillCount = 0;
+      document.getElementById('water-bills-container').innerHTML = ''; waterBillCount = 0;
       let waterIds = extractIds('periodoAcqua_');
       if (waterIds.length === 0) addWaterBill(); else waterIds.forEach(id => addWaterBill(id));
 
-      // Ricostruzione Carichi
-      document.getElementById('loads-container').innerHTML = '';
-      loadCount = 0;
+      document.getElementById('loads-container').innerHTML = ''; loadCount = 0;
       let lIds = extractIds('tipoCarico_');
       if (lIds.length === 0) addLoad(); else lIds.forEach(id => addLoad(id));
 
-      // Ricostruzione HVAC
-      document.getElementById('hvac-container').innerHTML = '';
-      hvacCount = 0;
+      document.getElementById('hvac-container').innerHTML = ''; hvacCount = 0;
       let hIds = extractIds('tipoImpiantoTermico_');
       if (hIds.length === 0) addHVAC(); else hIds.forEach(id => addHVAC(id));
     }
 
     function salvaDati() {
       localStorage.setItem(storageKey, JSON.stringify(getFormData()));
-      alert('Dati salvati nel browser del dispositivo.');
+      alert('I dati sono stati salvati nella memoria locale del tuo browser.');
     }
 
     function caricaDati() {
       const raw = localStorage.getItem(storageKey);
       if (!raw) {
-        alert('Nessun dato salvato trovato.');
+        alert('Nessun salvataggio precedente trovato su questo dispositivo.');
         return;
       }
       const data = JSON.parse(raw);
       rebuildDynamicFields(data);
-
       setTimeout(() => {
         setFormData(data);
-        alert('Dati caricati correttamente dal browser.');
+        alert('Dati caricati correttamente.');
       }, 50);
     }
 
     function resetModulo() {
-      if (!confirm('Vuoi davvero azzerare tutti i campi del modulo?')) return;
+      if (!confirm('Attenzione: sei sicuro di voler svuotare tutto il modulo? I dati non salvati andranno persi.')) return;
       form.reset();
       form.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
       
