@@ -19,10 +19,10 @@
       --border: #e5e7eb; 
       
       /* Colore Aziendale HUB Specifico */
-      --hub-violet: #3C364C; /* Viola fornito dall'utente */
-      --hub-violet-hover: #4e4663; /* Variante più chiara per hover */
+      --hub-violet: #3C364C;
+      --hub-violet-hover: #4e4663;
       
-      --primary: #3a73d8;      /* Blu standard di HUB */
+      --primary: #3a73d8;
       --accent: #eff6ff;
       --danger: #ef4444;       
       --success: #10b981;      
@@ -54,7 +54,7 @@
     #login-overlay {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100vh;
-      background: linear-gradient(135deg, var(--hub-violet), #1d4ed8); /* Gradiente usando il viola specifico */
+      background: linear-gradient(135deg, var(--hub-violet), #1d4ed8);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -121,7 +121,6 @@
     }
 
     .header {
-      /* Sfondo Viola Aziendale Specifico */
       background: var(--hub-violet);
       color: white;
       border-radius: var(--radius);
@@ -137,7 +136,6 @@
       max-height: 80px;
       max-width: 250px;
       object-fit: contain;
-      /*border-radius: 8px; <-- RIMOSSO PER MANTENERE SPIGOLI VIVI */
     }
 
     .header-content {
@@ -337,24 +335,118 @@
       .toolbar { justify-content: center; }
     }
 
+    /* --- STILI SPECIFICI PER LA STAMPA / PDF --- */
+    @page {
+      margin: 1.2cm; /* Margini adatti per A4 */
+    }
+
     @media print {
-      body { background: white; color: black; font-size: 10pt; }
-      #login-overlay { display: none !important; }
+      /* Forza i colori di background, utile per Chrome/Edge/Safari */
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      
+      body { 
+        background: white; 
+        color: black; 
+        font-size: 9pt; /* Testo leggermente più piccolo per far stare più info */
+      }
+
+      /* Nascondo elementi inutili su carta */
+      #login-overlay, .toolbar, .btn-add, .btn-remove, .note, .footer-copyright { 
+        display: none !important; 
+      }
+      
       #main-content { display: block !important; }
-      .container { padding: 0; }
-      .toolbar, .btn-add, .btn-remove { display: none !important; }
-      .card, .header { box-shadow: none; border: 1px solid #d1d5db; page-break-inside: avoid; border-radius: 0; }
       
-      /* In stampa mantengo il viola scuro aziendale come colore del testo nell'header */
-      .header { color: var(--hub-violet); background: white; border-bottom: 3px solid var(--hub-violet); flex-direction: row; text-align: left; padding: 20px;}
-      .section-title { color: var(--hub-violet); border-bottom: 1px solid black; }
-      .company-name { color: var(--muted); }
-      .dynamic-item-box { border: 1px solid #e5e7eb !important; padding: 15px !important; background: transparent !important; margin-bottom: 15px !important; page-break-inside: avoid;}
-      .dynamic-item-header { border-bottom: 1px solid #e5e7eb !important; }
-      input, select, textarea { border: 1px solid #ccc; background: transparent; padding: 8px;}
-      
-      /* Stile specifico per la firma in stampa: solo linea tratteggiata nera */
-      .signature-field input { border: none !important; border-bottom: 1px dashed black !important; border-radius: 0 !important; color: transparent !important; }
+      .container { 
+        padding: 0; 
+        margin: 0; 
+        max-width: 100%;
+      }
+
+      /* Header: Mantiene i colori ma toglie le ombre e arrotondamenti */
+      .header { 
+        color: white !important; 
+        background: var(--hub-violet) !important; 
+        border-radius: 8px !important; 
+        flex-direction: row; 
+        text-align: left; 
+        padding: 15px 20px !important;
+        box-shadow: none !important;
+        margin-bottom: 20px !important;
+        page-break-after: avoid;
+      }
+      .header h1 { font-size: 1.6rem !important; margin-bottom: 5px !important; }
+      .header p { font-size: 0.95rem !important; }
+      .header .logo { max-height: 55px !important; }
+
+      /* Cards: rimuove ombre, aggiunge bordo pulito e previene il taglio a metà */
+      .card { 
+        box-shadow: none !important; 
+        border: 1px solid #d1d5db !important; 
+        page-break-inside: avoid !important; /* Molto importante: non spezza la sezione su due fogli */
+        border-radius: 8px !important; 
+        padding: 15px !important;
+        margin-bottom: 15px !important;
+      }
+
+      .section-title { 
+        color: var(--hub-violet) !important; 
+        border-bottom: 2px solid var(--hub-violet) !important; 
+        margin-bottom: 12px !important;
+        padding-bottom: 5px !important;
+        font-size: 1.1rem !important;
+      }
+      .section-subtitle { margin: 15px 0 10px 0 !important; font-size: 1rem !important;}
+
+      /* Box dinamici (bollette, carichi, hvac) */
+      .dynamic-item-box { 
+        border: 1px solid #cbd5e1 !important; 
+        padding: 12px !important; 
+        background: transparent !important; 
+        margin-bottom: 12px !important; 
+        page-break-inside: avoid !important;
+      }
+      .dynamic-item-header { 
+        border-bottom: 1px solid #e5e7eb !important; 
+        margin-bottom: 10px !important;
+        padding-bottom: 5px !important;
+      }
+      .dynamic-item-header h3 { font-size: 1rem !important; }
+
+      /* Grid compatta */
+      .grid, .grid-3 { gap: 10px !important; }
+      .field { gap: 4px !important; }
+      label { font-size: 0.75rem !important; }
+
+      /* Modifica input e textarea per risparmiare spazio e renderli puliti */
+      input, select, textarea { 
+        border: 1px solid #94a3b8 !important; 
+        background: transparent !important; 
+        padding: 6px 8px !important;
+        font-size: 8.5pt !important;
+        border-radius: 4px !important;
+        color: black !important;
+      }
+      textarea { min-height: 60px !important; }
+
+      .check-grid { 
+        border: 1px solid #cbd5e1 !important; 
+        background: transparent !important; 
+        padding: 10px !important; 
+        gap: 8px !important;
+      }
+
+      /* Firma */
+      .signature-field input { 
+        border: none !important; 
+        border-bottom: 1px dashed black !important; 
+        border-radius: 0 !important; 
+        background: transparent !important; 
+        color: transparent !important; /* Nasconde l'eventuale testo inserito se si firma a penna */
+      }
     }
   </style>
 </head>
@@ -519,7 +611,7 @@
         <h2 class="section-title">9. IMPIANTO ELETTRICO GENERALE</h2>
         <div class="grid-3">
           <div class="field"><label>Fornitura</label><input name="fornituraElettrica" placeholder="BT / MT"></div>
-          <div class="field"><label>Potenza impegnata [kW]</label><input type="number" step="0.1" name="potenzaImpemanata"></div>
+          <div class="field"><label>Potenza impegnata [kW]</label><input type="number" step="0.1" name="potenzaImpegnata"></div>
           <div class="field"><label>Potenza disponibile [kW]</label><input type="number" step="0.1" name="potenzaDisponibile"></div>
           <div class="field"><label>Cabina MT/BT</label><select name="cabina"><option value=""></option><option>Sì</option><option>No</option></select></div>
           <div class="field"><label>Trasformatore [kVA]</label><input type="number" step="0.1" name="trasformatore"></div>
@@ -547,7 +639,7 @@
         <div class="grid-3">
           <div class="field"><label>Presenza Chiller</label><select name="frigoProcesso"><option value=""></option><option>Sì</option><option>No</option></select></div>
           <div class="field"><label>Marca Chiller</label><input name="marcaChiller"></div>
-          <div class="field"><label>Modello Chiller</label><input name="modelloChiller"></div>
+          <div class="field"><label>Modello</label><input name="modelloChiller"></div>
           <div class="field"><label>Anno Installazione</label><input type="number" name="annoChiller"></div>
           <div class="field"><label>Potenza Elettrica Max [kWe]</label><input type="number" step="0.1" name="potenzaElettricaChiller"></div>
           <div class="field"><label>Calore di Processo (Vapore/Olio)</label><select name="caloreProcesso"><option value=""></option><option>Sì</option><option>No</option></select></div>
@@ -699,7 +791,6 @@
       }
     }
 
-
     // Contatori per i blocchi dinamici
     let eeBillCount = 0;
     let gasBillCount = 0;
@@ -784,7 +875,6 @@
     }
     function removeWaterBill(id) { const unit = document.getElementById(`water-bill-${id}`); if (unit) unit.remove(); }
 
-
     // --- FUNZIONI PER CARICHI INTERNI DINAMICI ---
     function addLoad(forceId = null) {
       if (forceId !== null) { loadCount = forceId; } else { loadCount++; }
@@ -812,7 +902,6 @@
       container.insertAdjacentHTML('beforeend', html);
     }
     function removeLoad(id) { const unit = document.getElementById(`load-unit-${id}`); if (unit) unit.remove(); }
-
 
     // --- FUNZIONI PER CAMPI HVAC DINAMICI ---
     function addHVAC(forceId = null) {
